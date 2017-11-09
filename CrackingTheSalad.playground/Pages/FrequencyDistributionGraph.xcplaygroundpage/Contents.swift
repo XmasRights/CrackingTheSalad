@@ -11,10 +11,27 @@ import Foundation
 
 // Implementation - you can move it later to `Sources/FrequencyDistribution.swift`
 
+public func emptyDistributionAnalyse() -> [String : Int]
+{
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".reduce([String : Int]())
+    {
+        var dict = $0
+        dict[String($1)] = 0
+        return dict
+    }
+}
+
 public func frequencyDistributionAnalyse(text: String) -> [String: Int] {
-      // 🤔
-      // return a dictionary with alphabet letters as keys and the count of their appearance in the text as a value
-    return [:]
+
+    var dictionary = emptyDistributionAnalyse()
+    for char in text
+    {
+        let key = String(char).uppercased()
+        guard let count = dictionary[key] else { continue }
+        dictionary[key] = count + 1
+    }
+    
+    return dictionary
 }
 
 // Test Data
@@ -22,8 +39,8 @@ let englishText = "Guess who originally said the following? Experience is the te
 let englishAnalyse = frequencyDistributionAnalyse(text: englishText)
 
 let cipherText = "JHLZHY VUJL ZHPK 'PA PZ ILAALY AV JYLHAL AOHU AV SLHYU! JYLHAPUN PZ AOL LZZLUJL VM SPML.' JVUNYHAZ, FVB THUHNLK AV IYLHR AOL JVKL! XBPAL BUPXBL LEWLYPLUJL, PZU'A PA? FVB JHU UVD TVCL AV AOL ULEA AHZR DOPJO DPSS YLTVCL AOL ULLK VM H OBTHU."
-let cipherAnalyse = frequencyDistributionAnalyse(text: cipherText)
 
+let cipherAnalyse = frequencyDistributionAnalyse(text: cipherText)
 
 /*:
  ## Visualise the data
@@ -42,11 +59,9 @@ let cipherAnalyse = frequencyDistributionAnalyse(text: cipherText)
  */
 
 // Implementation - you can move it later to `Sources/FrequencyDistribution.swift`
-
-public func prepareDataSetForFrequencyDistribution(from analyse: [String: Int]) -> [(key: String, value: Int)] {
-    // 🤔
-    // return an array of tuples (think about sorting them so both graphs are feed with letters in the same order, i.e.
-    return [(key: "a", value: 10), (key: "b", value: 2), (key: "c", value: 20)]
+public func prepareDataSetForFrequencyDistribution(from analyse: [String: Int]) -> [(key: String, value: Int)]
+{
+    return analyse.sorted(by: { $0.key < $1.key })
 }
 
 let englishAnalyseDataset = prepareDataSetForFrequencyDistribution(from: englishAnalyse)
@@ -57,4 +72,8 @@ Graph(dataSet: cipherAnalyseDataset).draw()
 
 // The offset is: 
 // print(cipher(cipherText, offset: ))
+
+
+
+
 
