@@ -7,11 +7,14 @@
 import Foundation
 
 // Implementation
-
-func breakCaesarCipher(text: String) -> String {
-    // return decrypted text using frequency distribution and comparing highest or lowest letter frequencies
-    // can you think of a way to make it even smarter? Maybe responding with an array of results with percentage of certainty?
-    return ""
+func breakCaesarCipher(text: String) -> String
+{
+    let mostFrequentEnglishCharacter = "E"
+    let mostFrequent = text.mostFrequentCharacter
+    
+    let offset = mostFrequent.ascii - mostFrequentEnglishCharacter.ascii
+    
+    return cipher(text, offset: -offset)
 }
 
 

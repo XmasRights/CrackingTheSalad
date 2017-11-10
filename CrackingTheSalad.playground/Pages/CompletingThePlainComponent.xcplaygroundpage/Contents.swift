@@ -13,45 +13,6 @@ For that we will need a Caesar cipher implementation!
 import UIKit
 import XCTest
 
-// Caesar Cipher implementation
-extension Character
-{
-    var ascii: Int
-    {
-        guard let scalar = self.unicodeScalars.first else { preconditionFailure() }
-        return Int(scalar.value)
-    }
-}
-
-extension Int
-{
-    var character: Character
-    {
-        guard let scalar = Unicode.Scalar(self) else { preconditionFailure() }
-        return Character(scalar)
-    }
-}
-
-public func canCipher(_ ascii: Int) -> Bool
-{
-    return (ascii >= 65 && ascii <= 90)
-}
-
-public func cipher(_ string: String, offset: Int) -> String
-{
-    return string.map
-    {   char -> String in
-
-        let ascii = char.ascii
-        guard canCipher(ascii) else { return String(char) }
-        
-        var shiftedValue = ascii + (offset % 26)
-        shiftedValue = (shiftedValue < 65) ? shiftedValue + 26 : shiftedValue
-        shiftedValue = (shiftedValue > 90) ? shiftedValue - 26 : shiftedValue
-
-        return String(shiftedValue.character)
-    }.joined()
-}
 
 // Tests
 let testSubject = "SWIFT"
@@ -72,11 +33,7 @@ let superSecretText = "FAUW QGM ZSNW VGFW AL"
 
 // Check all possibilities and show which offset is the answer
 
-//for i in (1...25)
-//{
-//    print("\(i): \(cipher(superSecretText, offset: i))")
-//}
+//(1...25).forEach { print("\($0): \(cipher(superSecretText, offset: $0))") }
 
-
-// The answer is:  
+// The answer is: 8
 

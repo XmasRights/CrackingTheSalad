@@ -9,30 +9,6 @@
 
 import Foundation
 
-// Implementation - you can move it later to `Sources/FrequencyDistribution.swift`
-
-public func emptyDistributionAnalyse() -> [String : Int]
-{
-    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".reduce([String : Int]())
-    {
-        var dict = $0
-        dict[String($1)] = 0
-        return dict
-    }
-}
-
-public func frequencyDistributionAnalyse(text: String) -> [String: Int] {
-
-    var dictionary = emptyDistributionAnalyse()
-    for char in text
-    {
-        let key = String(char).uppercased()
-        guard let count = dictionary[key] else { continue }
-        dictionary[key] = count + 1
-    }
-    
-    return dictionary
-}
 
 // Test Data
 let englishText = "Guess who originally said the following? Experience is the teacher of all things. I love the name of honor, more than I fear death. Fortune, which has a great deal of power in other matters but especially in war, can bring about great changes in a situation through very slight forces. Without training, they lacked knowledge. Without knowledge, they lacked confidence. Without confidence, they lacked victory."
@@ -59,11 +35,6 @@ let cipherAnalyse = frequencyDistributionAnalyse(text: cipherText)
  */
 
 // Implementation - you can move it later to `Sources/FrequencyDistribution.swift`
-public func prepareDataSetForFrequencyDistribution(from analyse: [String: Int]) -> [(key: String, value: Int)]
-{
-    return analyse.sorted(by: { $0.key < $1.key })
-}
-
 let englishAnalyseDataset = prepareDataSetForFrequencyDistribution(from: englishAnalyse)
 Graph(dataSet: englishAnalyseDataset).draw()
 
@@ -72,6 +43,14 @@ Graph(dataSet: cipherAnalyseDataset).draw()
 
 // The offset is: 
 // print(cipher(cipherText, offset: ))
+
+
+//let mostFrequentEnglish = mostFrequentCharacter(distribution: englishAnalyseDataset)
+//let mostFrequentCipher  = mostFrequentCharacter(distribution: cipherAnalyseDataset)
+//
+//let offset = mostFrequentCipher.ascii - mostFrequentEnglish.ascii
+//print(cipher(cipherText, offset: -offset))
+
 
 
 
